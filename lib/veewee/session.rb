@@ -732,7 +732,13 @@ module Veewee
                 dst.write(src.read)
               }
             }
-         
+	rescue => e
+            case e
+	    when OpenURI::HTPPError
+		puts "Error fetching file from #{url}"
+	    else 
+		raise e
+	    end 
       end
     
       def self.transaction(boxname,step_name,checksums,&block)
